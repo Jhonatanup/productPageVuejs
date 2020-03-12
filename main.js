@@ -1,37 +1,44 @@
-var app = new Vue ({
+var app = new Vue({
     el: '#app',
     data: {
-        cart: 0,
-        product: 'meias',
-        description: 'melhores meias que você ja vue',
-        details: ['80% algodão', '20% poliester', 'Gender-neutral'],
-        image: './assets/vmSocks-green-onWhite.jpg',
-        altText: 'um par de meia',
-        inStock: true,
-        inventory: 9,
+        product: 'Socks',
+        brand: 'Vue Mastery',
+        selectedVariant: 0,
+        details: ['80% cotton', '20% polyester', 'Gender-neutral'],
         variants: [
-            {
-                variantId: 2234,
-                variantColor: 'green',
-                variantImage: './assets/vmSocks-green-onWhite.jpg'
-            },
-            {
-                variantId: 2235,
-                variantColor: 'blue',
-                variantImage: './assets/vmSocks-blue-onWhite.jpg'
-            }
+          {
+            variantId: 2234,
+            variantColor: 'green',
+            variantImage:  'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
+            variantQuantity: 10     
+          },
+          {
+            variantId: 2235,
+            variantColor: 'blue',
+            variantImage: 'https://www.vuemastery.com/images/challenges/vmSocks-blue-onWhite.jpg',
+            variantQuantity: 0     
+          }
         ],
+        cart: 0
     },
     methods: {
-        addToCart(){
-            this.cart +=1
+        addToCart: function() {
+            this.cart += 1
         },
-        removeToCart(){
-            if(this.cart > 0)
-                this.cart -=1
-        },
-        updateProduct(img){
-            this.image = img
+        updateProduct: function(index) {  
+            this.selectedVariant = index
+            console.log(index)
         }
     },
-})
+    computed: {
+        title() {
+            return this.brand + ' ' + this.product  
+        },
+        image(){
+            return this.variants[this.selectedVariant].variantImage
+        },
+        inStock(){
+            return this.variants[this.selectedVariant].variantQuantity
+        }
+    }
+  })
